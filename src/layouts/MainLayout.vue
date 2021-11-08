@@ -71,7 +71,7 @@ export default {
             .search-bar {
                 width: 30%;
                 border: 1px solid #eee;
-                padding: 5px;
+                padding: 10px 5px;
                 border-radius: 5px;
                 background: #fff;
                 .fa-search {
