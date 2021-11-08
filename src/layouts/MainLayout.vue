@@ -15,11 +15,11 @@
                 </button>
                 <div class="app-title">Sheet Shelf</div>
                 <div class="user-dropdown">
-                    <button class="dropbtn">
+                    <button class="dropbtn" @click="showProfile = !showProfile" v-click-outside="closeProfile">
                         <div class="image">I</div>
                         <i class="fas fa-caret-down"></i>
                     </button>
-                    <div class="dropdown-content">
+                    <div v-if="showProfile" class="dropdown-content">
                         <router-link to="/profile"><a href="#">Profile</a></router-link>
                         <router-link to="/login"><a href="#">Logout</a></router-link>
                     </div>
@@ -35,8 +35,18 @@ import Sidebar from '../components/Sidebar.vue';
 
 export default {
     name: 'MainLayout',
+    data() {
+        return {
+            showProfile: false
+        }
+    },
     components: {
         Sidebar
+    },
+    methods: {
+        closeProfile() {
+            this.showProfile = false;
+        }
     }
 }
 </script>
@@ -103,9 +113,6 @@ export default {
                 position: absolute;
                 right: 10px;
                 display: inline-block;
-                &:hover {
-                    .dropdown-content {display: block;}
-                }
                 .dropbtn {
                     color: white;
                     padding: 0 10px;
@@ -131,7 +138,6 @@ export default {
                     }
                 }
                 .dropdown-content {
-                    display: none;
                     position: absolute;
                     right: 0;
                     background-color: #f9f9f9;

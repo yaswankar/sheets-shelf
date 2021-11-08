@@ -2,7 +2,16 @@
     <div>
         <main-layout>
             <div class="main-container" slot="main-content">
-                <div class="title"><i class="fas fa-folder"></i><span>Sheets</span><span class="help"><i class="fas fa-question"></i></span></div>
+                <div class="title">
+                    <i class="fas fa-folder"></i>
+                    <span>Sheets</span>
+                    <span class="help">
+                        <i class="fas fa-question" @click="toggleHelp" v-click-outside="closeHelp"></i>
+                        <span class="popuptext" id="myPopup" v-if="popupVisible">
+                            <help-tooltip @close-help="toggleHelp"/>
+                        </span>
+                        </span>
+                </div>
                 <div class="selectors">
                     <input type="checkbox" @change="selectAll" v-model="allSelected"/>
                     <button class="actions-dropdown">
@@ -43,13 +52,15 @@
 </template>
 
 <script>
-import MainLayout from '../layouts/MainLayout.vue'
+import MainLayout from '../layouts/MainLayout.vue';
+import HelpTooltip from '../components/HelpTooltip.vue';
 
 export default {
     name: 'Sheets',
     data() {
         return {
             allSelected: false,
+            popupVisible: false,
             rowData: [
                 {
                     name: 'Sheet One',
@@ -76,12 +87,19 @@ export default {
         }
     },
     components: {
-        MainLayout
+        MainLayout,
+        HelpTooltip
     },
     methods: {
         selectAll() {
             if(this.allSelected) this.rowData.forEach(row => row.selected = true);
             else this.rowData.forEach(row => row.selected = false);
+        },
+        toggleHelp() {
+            this.popupVisible = !this.popupVisible;
+        },
+        closeHelp() {
+            this.popupVisible = false;
         }
     }
 }
@@ -110,9 +128,38 @@ export default {
         .help {
             float: right;
             font-size: 16px;
+            position: relative;
             &:hover {
                 color: #09f;
             }
+            .popuptext {
+                width: 350px;
+                height: 300px;
+                background-color: rgb(255, 255, 255);
+                border-radius: 2px;
+                box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+                text-align: center;
+                border-radius: 6px;
+                padding: 8px 0;
+                position: absolute;
+                z-index: 1;
+                top: 30px;
+                left: 50%;
+                margin-left: -340px;
+                -webkit-animation: fadeIn 1s;
+                animation: fadeIn 1s;
+            }
+
+                /* Add animation (fade in the popup) */
+                @-webkit-keyframes fadeIn {
+                    from {opacity: 0;} 
+                    to {opacity: 1;}
+                }
+
+                @keyframes fadeIn {
+                    from {opacity: 0;}
+                    to {opacity:1 ;}
+                }
         }
     }
     .selectors {
