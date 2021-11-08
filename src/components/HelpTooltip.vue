@@ -51,6 +51,7 @@ export default {
         height: 25px;
         color: #fff;
         border: 1px solid #09f;
+        font-weight: 600;
         border-radius: 4px;
     }
 }

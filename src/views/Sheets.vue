@@ -1,5 +1,4 @@
 <template>
-    <div>
         <main-layout>
             <div class="main-container" slot="main-content">
                 <div class="title">
@@ -21,7 +20,7 @@
                     <button :class="['delete', {'disabled': !allSelected}]">
                         <i class="fas fa-trash"></i>
                     </button>
-                    <button class="create-btn">
+                    <button class="create-btn" @click="routeToCreate">
                         <span>Create</span>
                         <i class="fas fa-caret-down"></i>
                     </button>
@@ -48,7 +47,6 @@
                 </div>
             </div>
         </main-layout>
-    </div>
 </template>
 
 <script>
@@ -100,6 +98,9 @@ export default {
         },
         closeHelp() {
             this.popupVisible = false;
+        },
+        routeToCreate() {
+            this.$router.push({name: 'Create'});
         }
     }
 }
