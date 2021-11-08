@@ -2,9 +2,9 @@
     <div>
         <main-layout>
             <div class="main-container" slot="main-content">
-                <div class="title"><i class="fas fa-folder"></i><span>Sheets</span></div>
+                <div class="title"><i class="fas fa-folder"></i><span>Sheets</span><span class="help"><i class="fas fa-question"></i></span></div>
                 <div class="selectors">
-                    <input type="checkbox" v-model="allSelected"/>
+                    <input type="checkbox" @change="selectAll" v-model="allSelected"/>
                     <button class="actions-dropdown">
                         <span>Actions</span>
                         <i class="fas fa-caret-down"></i>
@@ -12,6 +12,30 @@
                     <button :class="['delete', {'disabled': !allSelected}]">
                         <i class="fas fa-trash"></i>
                     </button>
+                    <button class="create-btn">
+                        <span>Create</span>
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                </div>
+                <div class="sheets-table-div">
+                    <table class="sheets-table">
+                        <thead>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>Name</td>
+                            <td>Shared Status</td>
+                            <td>Owner</td>
+                            <td>Last Updated</td>
+                        </thead>
+                        <tr v-for="(row, index) in rowData" :key="index">
+                            <td><input type="checkbox" v-model="row.selected"></td>
+                            <td @click="row.checked = !row.checked"><i :class="['fa-star', {'fas checked': row.checked, 'far': !row.checked}]"></i></td>
+                            <td>{{row.name}}</td>
+                            <td>{{row.shared ? row.shared: 'Not Shared'}}</td>
+                            <td>{{row.owner}}</td>
+                            <td>{{row.lastUpdated}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </main-layout>
@@ -25,11 +49,40 @@ export default {
     name: 'Sheets',
     data() {
         return {
-            allSelected: false
+            allSelected: false,
+            rowData: [
+                {
+                    name: 'Sheet One',
+                    owner: 'Amaar',
+                    lastUpdated: '29-04-1998',
+                    selected: false,
+                    checked: false
+                },
+                {
+                    name: 'Sheet Two',
+                    owner: 'Amaar',
+                    lastUpdated: '29-04-1998',
+                    selected: false,
+                    checked: false
+                },
+                {
+                    name: 'Sheet Three',
+                    owner: 'Amaar',
+                    lastUpdated: '29-04-1998',
+                    selected: false,
+                    checked: false
+                }
+            ]
         }
     },
     components: {
         MainLayout
+    },
+    methods: {
+        selectAll() {
+            if(this.allSelected) this.rowData.forEach(row => row.selected = true);
+            else this.rowData.forEach(row => row.selected = false);
+        }
     }
 }
 </script>
@@ -54,15 +107,22 @@ export default {
             font-weight: bolder;
             color: #4d4d4d;
         }
+        .help {
+            float: right;
+            font-size: 16px;
+            &:hover {
+                color: #09f;
+            }
+        }
     }
     .selectors {
-        .actions-dropdown {
+        .actions-dropdown, .create-btn {
             .fas {
                 color: var(--icon-color);
                 margin-left: 10px;
             }
         }
-        .delete, .actions-dropdown {
+        .delete, .actions-dropdown, .create-btn {
             border: 1px solid #ccc;
             color: #161616;
             height: 30px;
@@ -76,9 +136,47 @@ export default {
                 border-color: #C3C3C3;
             }
         }
+        .create-btn {
+            float: right;
+        }
         .disabled {
             opacity: 0.5;
             pointer-events: none;
+        }
+    }
+    .sheets-table-div {
+        width: 100%;
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        .sheets-table {
+            width: 100%;
+            border-collapse: collapse;
+            thead {
+                height: 35px;
+                font-weight: 500;
+                background-color: rgb(226, 223, 223);
+                font-size: 16px;
+                td {
+                    border-right: 1px solid #ccc;
+                    padding-left: 10px;
+                }
+            }
+            tr {
+                height: 30px;
+                border-bottom: 1px solid #ccc;
+                background: rgb(243, 242, 242);
+                font-size: 14px;
+                td {
+                    padding-left: 10px;
+                }
+                td:first-child, td:nth-child(2) {
+                    width: 30px;
+                }
+                .checked {
+                    color: #09f;
+                }
+            }
         }
     }
 }
