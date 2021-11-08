@@ -3,13 +3,17 @@
     <nav class="sidebar-nav">
         <div class="sidebar-title"><i class="fas fa-bars" @click="collapsed"></i><span v-if="!collapse">Home</span></div>
         <ul>
-            <li>
-                <div><i class="fas fa-box"></i> <span v-if="!collapse" class="">Dashboard</span></div>
-            </li>
-            <li>
-                <div><i class="fas fa-book"></i> <span v-if="!collapse" class="">Sheets</span></div>
-            </li>
-            <li>
+            <router-link to="/">
+                <li :title="collapse?'Dashboard': ''">
+                    <div><i class="fas fa-box"></i> <span v-if="!collapse" class="">Dashboard</span></div>
+                </li>
+            </router-link>
+            <router-link to="/sheets">
+                <li :title="collapse?'Sheets': ''">
+                    <div><i class="fas fa-book"></i> <span v-if="!collapse" class="">Sheets</span></div>
+                </li>
+            </router-link>
+            <li :title="collapse?'Reports': ''">
                 <div><i class="fas fa-clipboard"></i> <span v-if="!collapse" class="">Reports</span></div>
             </li>
             <li>
@@ -119,6 +123,12 @@ Sidebar Nav
         padding: 0;
         margin: 0;
         text-align: left;
+        cursor: pointer;
+        .router-link-exact-active {
+            li {
+                background-color: rgba(0,0,0,0.9);
+            }
+        }
     li{
         margin-left: 0;
         padding-left: 0;
