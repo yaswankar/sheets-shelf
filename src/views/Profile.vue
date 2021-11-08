@@ -1,17 +1,15 @@
 <template>
-    <div>
-        <main-layout>
+    <main-layout>
             <div slot="main-content">
+                yoyosdfdsf
             </div>
-        </main-layout>
-    </div>
+    </main-layout>
 </template>
 
 <script>
-import MainLayout from '../layouts/MainLayout.vue'
+import MainLayout from '../layouts/MainLayout.vue';
 
 export default {
-    name: 'Home',
     components: {
         MainLayout
     }
