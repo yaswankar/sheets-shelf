@@ -166,19 +166,6 @@ Sidebar Nav
         }  
     }
     }
-
-/* -------------
-Chev elements
-----------------*/ 
-    // & > ul > li:first-child > div:after {
-    //     content: '>';
-    //     font-size: 0.5em;
-    //     width: 10px;
-    //     color: #fff;
-    //     position: absolute;
-    //     right: 0.75em;
-    //     top: 45%;
-    // }
     /* -------------
     Nav-Flyout
     ----------------*/

@@ -1,8 +1,5 @@
 <template>
     <main-layout>
-            <div slot="main-content">
-                yoyosdfdsf
-            </div>
     </main-layout>
 </template>
 
@@ -10,12 +7,12 @@
 import MainLayout from '../layouts/MainLayout.vue';
 
 export default {
+    name: 'Profile',
     components: {
-        MainLayout
-    }
+        MainLayout,
+    },
 }
 </script>
 
-<style>
-
+<style lang="scss">
 </style>

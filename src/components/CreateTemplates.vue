@@ -5,34 +5,56 @@
                 <div class="title">Create</div>
                 <div class="description">Start a new sheet, grid or project</div>
                 <div class="image-container">
-                    <div class="container container-1">
+                    <div class="container container-1" @click="selectTemplate('grid')">
                         <div class="image"></div>
                         <div class="context">Grid</div>
                     </div>
-                    <div class="container container-2">
+                    <div class="container container-2" @click="selectTemplate('project')">
                         <div class="image"></div>
                         <div class="context">Project</div>
                     </div>
-                    <div class="container container-3">
+                    <div class="container container-3" @click="selectTemplate('cards')">
                         <div class="image"></div>
                         <div class="context">Cards</div>
                     </div>
-                    <div class="container container-4">
+                    <div class="container container-4" @click="selectTemplate('tasksList')">
                         <div class="image"></div>
                         <div class="context">Tasks List</div>
                     </div>
                 </div>
             </div>
+            <modal :width="300" :height="172" v-show="showModal" @close-modal="showModal = false">
+                    <div class="modal-text" slot="modal-content">
+                        <create-template-modal @close-modal="showModal = false"/>
+                    </div>
+            </modal>
         </div>
     </main-layout>
 </template>
 
 <script>
-import MainLayout from '../layouts/MainLayout.vue'
+import MainLayout from '../layouts/MainLayout.vue';
+import Modal from '../components/Modal.vue';
+import CreateTemplateModal from '../components/Modals/CreateTemplateModal.vue'
+
 export default {
     name: 'CreateTemplates',
     components: {
-        MainLayout
+        MainLayout,
+        Modal,
+        CreateTemplateModal
+    },
+    data() {
+        return {
+            showModal: false,
+            templateType: null
+        };
+    },
+    methods: {
+        selectTemplate(type) {
+            this.templateType = type;
+            this.showModal = true;
+        }
     }
 }
 </script>
@@ -77,7 +99,7 @@ export default {
     .container-1 {
         margin-left: 0;
         .image {
-            background-image: url("https://s.smartsheet.com/b/images/sprites/gallYQURATEZ5OX7UG3DKEXBHPWT3A.2x.png");
+            background-image: url("../assets/Create-sprite.png");
             background-size: 240px 2610px;
             background-position: -10px -1050px;
             background-repeat: no-repeat no-repeat;
@@ -87,7 +109,7 @@ export default {
     }
     .container-2 {
         .image {
-            background-image: url("https://s.smartsheet.com/b/images/sprites/gallYQURATEZ5OX7UG3DKEXBHPWT3A.2x.png");
+            background-image: url("../assets/Create-sprite.png");
             background-size: 240px 2610px;
             background-position: -10px -1440px;
             background-repeat: no-repeat no-repeat;
@@ -99,7 +121,7 @@ export default {
         .image {
             width: 220px;
             height: 120px;
-            background-image: url("https://s.smartsheet.com/b/images/sprites/gallYQURATEZ5OX7UG3DKEXBHPWT3A.2x.png");
+            background-image: url("../assets/Create-sprite.png");
             background-size: 240px 2610px;
             background-position: -10px -1180px;
             background-repeat: no-repeat no-repeat;
@@ -109,7 +131,7 @@ export default {
         .image {
             width: 220px;
             height: 120px;
-            background-image: url("https://s.smartsheet.com/b/images/sprites/gallYQURATEZ5OX7UG3DKEXBHPWT3A.2x.png");
+            background-image: url("../assets/Create-sprite.png");
             background-size: 240px 2610px;
             background-position: -10px -1700px;
             background-repeat: no-repeat no-repeat;
