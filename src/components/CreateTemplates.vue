@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <modal :width="300" :height="172" v-show="showModal" @close-modal="showModal = false">
+            <modal :width="300" :height="172" v-if="showModal" @close-modal="showModal = false">
                     <div class="modal-text" slot="modal-content">
                         <create-template-modal @close-modal="showModal = false"/>
                     </div>

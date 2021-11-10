@@ -26,6 +26,10 @@ export default {
             if(oldVal === '' && newVal !== '') this.error = false;
         }
     },
+    mounted() {
+        this.error = false;
+        this.tempName = '';
+    },
     methods: {
         checkName() {
             this.error = this.tempName === ''?true:false;
@@ -35,7 +39,6 @@ export default {
         },
         close() {
             this.$emit('close-modal', this.tempName);
-            this.error = false;
         }
     }
 }
