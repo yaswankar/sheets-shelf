@@ -28,7 +28,7 @@
                         <create-template-modal @close-modal="getTemplateName"/>
                     </div>
             </modal>
-            <template-file v-show="openFile" :fileName="fileName" :fileType="templateType" />
+            <template-file v-show="openFile" :fileName="fileName" :fileType="templateType" @update-name="updateName" />
         </div>
     </main-layout>
 </template>
@@ -66,6 +66,9 @@ export default {
                 this.openFile = true;
                 this.fileName = name;
             }
+        },
+        updateName(name) {
+            this.fileName = name;
         }
     }
 }
