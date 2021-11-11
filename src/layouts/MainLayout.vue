@@ -13,7 +13,7 @@
                     <i class="fas fa-upload"></i>
                     <span>Upgrade</span>
                 </button>
-                <div class="app-title">Sheet Shelf</div>
+                <div class="app-title">Sheets Shelf</div>
                 <div class="user-dropdown">
                     <button class="dropbtn" @click="showProfile = !showProfile" v-click-outside="closeProfile">
                         <div class="image">I</div>
