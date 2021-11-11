@@ -25,6 +25,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Running a multi-line script for Deployment
         run: |
+          npm install
           npm run build
           cd dist
           git init
