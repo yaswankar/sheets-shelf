@@ -15,21 +15,23 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  build-deploy:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Runs a set of commands using the runners shell
-      - name: Running a multi-line script for Deployment
-        run: |
-          npm install
-          npm run build
-          cd dist
-          git init
-          git add -A
-          git commit -m 'deploy'
-          git push -f https://github.com/yaswankar/sheets-shelf.git master:gh-pages
-          cd -
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Set-Up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: INSTALLING DEPENDENCIES
+        run: npm install
+      - name: BUILDING APPLICATION
+        run: npm run build
+      - name: DEPLOYING TO GH-PAGES
+        uses: crazy-max/ghaction-github-pages@v2.5.0
+        with: 
+          target_branch: gh-pages
+          build_dir: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTION_KEY }}
