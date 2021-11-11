@@ -1,59 +1,71 @@
 <template>
     <main-layout>
-        <div class="main-container" slot="main-content">
-            <div class="title-container">
+        <div class="temp-container" slot="main-content">
+            <div class="title-container" v-if="!openFile">
                 <div class="title">Create</div>
                 <div class="description">Start a new sheet, grid or project</div>
                 <div class="image-container">
-                    <div class="container container-1" @click="selectTemplate('grid')">
+                    <div class="container container-1" @click="selectTemplate('Grid')">
                         <div class="image"></div>
                         <div class="context">Grid</div>
                     </div>
-                    <div class="container container-2" @click="selectTemplate('project')">
+                    <div class="container container-2" @click="selectTemplate('Project')">
                         <div class="image"></div>
                         <div class="context">Project</div>
                     </div>
-                    <div class="container container-3" @click="selectTemplate('cards')">
+                    <div class="container container-3" @click="selectTemplate('Cards')">
                         <div class="image"></div>
                         <div class="context">Cards</div>
                     </div>
-                    <div class="container container-4" @click="selectTemplate('tasksList')">
+                    <div class="container container-4" @click="selectTemplate('TasksList')">
                         <div class="image"></div>
                         <div class="context">Tasks List</div>
                     </div>
                 </div>
             </div>
-            <modal :width="300" :height="172" v-if="showModal" @close-modal="showModal = false">
+            <modal :width="300" :height="172" v-if="showModal" @close-modal="getTemplateName">
                     <div class="modal-text" slot="modal-content">
-                        <create-template-modal @close-modal="showModal = false"/>
+                        <create-template-modal @close-modal="getTemplateName"/>
                     </div>
             </modal>
+            <template-file v-show="openFile" :fileName="fileName" :fileType="templateType" />
         </div>
     </main-layout>
 </template>
 
 <script>
 import MainLayout from '../layouts/MainLayout.vue';
-import Modal from '../components/Modal.vue';
-import CreateTemplateModal from '../components/Modals/CreateTemplateModal.vue'
+import Modal from './Modal.vue';
+import CreateTemplateModal from './Modals/CreateTemplateModal.vue'
+import TemplateFile from './TemplateFile.vue';
 
 export default {
     name: 'CreateTemplates',
     components: {
         MainLayout,
         Modal,
-        CreateTemplateModal
+        CreateTemplateModal,
+        TemplateFile
     },
     data() {
         return {
             showModal: false,
-            templateType: null
+            templateType: null,
+            fileName: null,
+            openFile: false
         };
     },
     methods: {
         selectTemplate(type) {
             this.templateType = type;
             this.showModal = true;
+        },
+        getTemplateName(name='') {
+            this.showModal = false;
+            if(name !== '') {
+                this.openFile = true;
+                this.fileName = name;
+            }
         }
     }
 }
@@ -64,6 +76,7 @@ export default {
     width: 100%;
     text-align: left;
     padding: 20px 30px;
+    box-sizing: border-box;
     .title {
         font-weight: bolder;
         font-size: 20px;
